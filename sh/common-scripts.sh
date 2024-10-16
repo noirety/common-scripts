@@ -392,10 +392,10 @@ install_qBittorrent() {
     mkdir -p ~/bin && source ~/.profile
     case $ARCH in
         x86_64|i686)
-            wget -qO ~/bin/qbittorrent-nox https://github.com/userdocs/qbittorrent-nox-static/releases/release-4.6.6_v2.0.10/download/x86_64-qbittorrent-nox
+            wget -qO ~/bin/qbittorrent-nox https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-4.6.6_v2.0.10/x86_64-qbittorrent-nox
             ;;
         armv7l|aarch64|arm64)
-            wget -qO ~/bin/qbittorrent-nox https://github.com/userdocs/qbittorrent-nox-static/releases/release-4.6.6_v2.0.10/download/aarch64-qbittorrent-nox
+            wget -qO ~/bin/qbittorrent-nox https://github.com/userdocs/qbittorrent-nox-static/releases/download/release-4.6.6_v2.0.10/aarch64-qbittorrent-nox
             ;;
         *)
             echo_red "未知的系统架构: $ARCH，安装失败"
