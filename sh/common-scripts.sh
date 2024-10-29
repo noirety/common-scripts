@@ -162,7 +162,7 @@ update_install_software() {
     apt update
     check_error "更新软件包列表时出错"
 
-    apt install -y vim nano net-tools inetutils-ping telnet ufw wget sudo
+    apt install -y vim nano net-tools inetutils-ping telnet ufw wget sudo ntp
     check_error "安装软件包时出错"
     echo_info "更新软件包完成"
     echo ""
