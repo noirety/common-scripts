@@ -1,5 +1,5 @@
 let urlList = [
-    'https://carpt.net/details.php?id=80237&hit=1',
+    'https://carpt.net/details.php?id=84612&hit=1',
     'https://carpt.net/details.php?id=37889&hit=1',
     'https://carpt.net/details.php?id=16591&hit=1',
     'https://carpt.net/details.php?id=59151&hit=1',
