@@ -311,11 +311,10 @@ install_nginx() {
         return 1;
     fi
 
-    apt update && apt install -y curl
+    apt update && apt install -y curl &&  apt install -y gnupg
 
     echo_info '导入Nginx官方签名密钥'
-    curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
-        | tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+    curl -fsSL https://nginx.org/keys/nginx_signing.key | gpg --dearmor -o /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
 
     echo_info '添加Nginx官方仓库'
     echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
@@ -539,17 +538,11 @@ main_option(){
         echo "22. 安装Nginx"
         echo "23. 安装Realm"
         echo "24. 安装Docker"
-        echo "25. 安装Fail2ban"
         echo "26. 安装QBittorrent"
         echo "---------------常用功能---------------"
-        echo "31. 添加Swap(暂不可用)"
-        echo "32. 查询Xray统计数据"
-        echo "33. 清除Oracle默认防火墙规则"
+        echo "31. 查询Xray统计数据"
         echo "---------------常用检测---------------"
-        echo "41. 三网回程检测"
-        echo "42. IP质量检测"
-        echo "43. 流媒体解锁检测"
-        echo "44. GeekBench5Only检测"
+        echo "41. NodeQuality检测"
         echo "-------------------------------------"
         echo_yellow "0. 退出脚本"
         echo ""
@@ -585,12 +578,12 @@ main_option(){
                apt update && apt install -y docker-compose
                echo_info "安装Docker完成"
                ;;
-            25)
-               # 安装Fail2ban
-               echo_info "安装Fail2ban开始..."
-               install_fail2ban
-               echo_info "安装Fail2ban完成"
-               ;;
+#            25)
+#               # 安装Fail2ban
+#               echo_info "安装Fail2ban开始..."
+#               install_fail2ban
+#               echo_info "安装Fail2ban完成"
+#               ;;
             26)
                 # 安装QBittorrent
                 echo_info "安装QBittorrent开始..."
@@ -598,42 +591,20 @@ main_option(){
                 echo_info "安装QBittorrent完成"
                 ;;
             31)
-                # 添加Swap todo
-                echo_info "添加Swap开始..."
-
-                echo_info "添加Swap完成"
-                ;;
-            32)
                 # 查询Xray统计数据
                 echo_info "查询Xray统计数据开始..."
-                bash <(curl -L -s raw.githubusercontent.com/noirety/common-scripts/main/sh/query-xray.sh)
+                bash <(curl -sL https://raw.githubusercontent.com/noirety/common-scripts/main/sh/query-xray.sh | tee query-xray.sh)
                 echo_info "查询Xray统计数据完成..."
                 ;;
-            33)
-                echo_info "清除Oracle默认防火墙规则开始..."
-                iptables -F
-                echo_info "清除Oracle默认防火墙规则完成"
-                ;;
+#            33)
+#                echo_info "清除Oracle默认防火墙规则开始..."
+#                iptables -F
+#                echo_info "清除Oracle默认防火墙规则完成"
+#                ;;
             41)
-                echo_info "三网回程检测开始..."
-                curl https://raw.githubusercontent.com/zhanghanyun/backtrace/main/install.sh -sSf | sh
-                echo_info "三网回程检测完成"
-                ;;
-            42)
-                echo_info "IP质量检测开始..."
-                bash <(curl -Ls ip.check.place)
-                echo_info "检测IP质量完成"
-                ;;
-            43)
-                echo_info "流媒体解锁检测开始..."
-                bash <(curl -L -s raw.githubusercontent.com/lmc999/RegionRestrictionCheck/main/check.sh)
-                echo_info "流媒体解锁检测完成"
-                ;;
-            44)
-                echo_info "GeekBench5Only检测开始..."
-                apt update && apt install -y curl
-                curl -sL yabs.sh | bash -s -- -5 -i
-                echo_info "GeekBench5Only检测完成"
+                echo_info "NodeQuality检测开始..."
+                bash <(curl -sL https://run.NodeQuality.com)
+                echo_info "NodeQuality检测完成"
                 ;;
             0)
                 echo "退出脚本"
